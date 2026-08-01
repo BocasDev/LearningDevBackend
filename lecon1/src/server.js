@@ -22,7 +22,24 @@ app.get("/api/test", (req,res)=>{
     });
     console.log(op);
     
-})
+});
+app.post("/utilisateurs", (req,res)=>{
+    const utilisateurs=req.body;
+    console.log(utilisateurs);
+    res.json({
+        message:"Utilisateur inscrit correctement"
+    });
+
+    
+});
+app.post("/filleul", (req,res)=>{
+    const filleul = req.body;
+    console.log(filleul);
+    res.json({
+        message: "Filleul enregistré avec succès",
+        data: filleul
+    });
+});
 app.listen(PORT, ()=>{
     console.log(`Serveur lancé sur le port ${PORT}`);
     
