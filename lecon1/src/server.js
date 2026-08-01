@@ -1,4 +1,5 @@
 const express=require("express");
+const pool = require("./database");
 const app= express();
 const PORT=3000;
 app.use(express.json());
@@ -40,7 +41,18 @@ app.post("/filleul", (req,res)=>{
         data: filleul
     });
 });
+app.get("/", (req,res)=>{
+    try {
+        const result= await pool.query("SELECT NOW()");
+        res.json(result.rows);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Erreur de connexion à la base"
+        });
+    }
+})
 app.listen(PORT, ()=>{
     console.log(`Serveur lancé sur le port ${PORT}`);
-    
 });
