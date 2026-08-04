@@ -8,6 +8,7 @@ const PORT=process.env.PORT || 3000;
 app.use(express.json());
 app.use("/api/auth", authRout);
 
+
 app.use("/api", routUser);
 /*
 app.get("/api/info", (req,res) => {

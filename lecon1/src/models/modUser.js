@@ -22,6 +22,15 @@ async function getUserById(id){
     );
     return result.rows[0];
 }
+async function getUserByEmail(email){
+    const result= await pool.query(
+        
+        "SELECT * FROM utilisateurs WHERE email=$1"
+        ,
+        [email]
+    );
+    return result.rows[0];
+}
 async function deleteUserById(id) {
     const result= await pool.query("DELETE FROM utilisateurs WHERE id=$1 RETURNING *",
         [id]
@@ -32,5 +41,6 @@ module.exports={
     getUser,
     createUser,
     getUserById,
-    deleteUserById
+    deleteUserById,
+    getUserByEmail
 };
