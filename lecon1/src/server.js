@@ -2,9 +2,11 @@ require("dotenv").config();
 const express=require("express");
 //const pool = require("./database/db");
 const routUser=require("./routes/routUser");
+const authRout=require("./routes/authRout");
 const app= express();
 const PORT=process.env.PORT || 3000;
 app.use(express.json());
+app.use("/api/auth", authRout);
 
 app.use("/api", routUser);
 /*
