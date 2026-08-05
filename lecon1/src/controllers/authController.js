@@ -5,14 +5,14 @@ const jwt=require("jsonwebtoken");
 
 async function inscription(req,res) {
     try {
-        const {id,nom,email,mot_de_passe}=req.body;
+        const {id,nom,email,mot_de_passe,role}=req.body;
         if(!nom || !email || !mot_de_passe){
             return res.status(400).json({
                 message:"Les champs nom email et mot de passe sont obligatoires"
             });
         }
         const hash=await bcrypt.hash(mot_de_passe,10);
-        const user = await modUser.createUser(id,nom,email,hash);
+        const user = await modUser.createUser(id,nom,email,hash,role);
         res.status(201).json({
             message:"compte créé", user
         });
@@ -47,16 +47,20 @@ async function connexion(req,res) {
         const token=jwt.sign(
             {
                 id:user.id,
-                email:user.email
+                email:user.email,
+                role: user.role
             },
-            "SECRET_KEY",
+            process.env.JWT_SECRET,
             {
                 expiresIn: "24h"
             }
         );
+        console.log(token);
         res.json({
             message:"connexion réussie", token
         });
+        
+        
 
     } catch (error) {
         res.status(500).json({

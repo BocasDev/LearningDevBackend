@@ -5,10 +5,10 @@ async function getUser(){
     return(result.rows);
 }
 
-async function createUser(id,nom,email,mot_de_passe){
+async function createUser(id,nom,email,mot_de_passe,role="utilisateur"){
     const result = await pool.query(`
-        Insert into utilisateurs(id,nom,email,mot_de_passe) VALUES($1,$2,$3,$4) RETURNING *
-        `, [id,nom,email,mot_de_passe]
+        Insert into utilisateurs(id,nom,email,mot_de_passe,role) VALUES($1,$2,$3,$4,$5) RETURNING *
+        `, [id,nom,email,mot_de_passe,role]
     );
     return result.rows[0];
 }
